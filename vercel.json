@@ -1,15 +1,9 @@
 {
     "version": 2,
-    "builds": [
-      {
-        "src": "./dist/day2movies-api.js",
-        "use": "@vercel/node"
-      }
-    ],
     "routes": [
       {
         "src": "/(.*)",
-        "dest": "/"
+        "dest": "./dist/day2movies-api.js"
       }
     ]
   }
