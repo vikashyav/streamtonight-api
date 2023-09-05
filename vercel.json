@@ -4,5 +4,5 @@
       "source": "/(.*)",
       "destination": "./dist/day2movies-api.js"
     }
-  ]
+  ]  
   }
