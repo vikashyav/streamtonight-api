@@ -1,5 +1,4 @@
 {
     "version": 2,
-    "builds": [{ "src": "dist/day2movies-api.js", "use": "@vercel/node" }],
     "rewrites": [{ "source": "/(.*)", "destination": "/dist/day2movies-api.js" }]
 }
