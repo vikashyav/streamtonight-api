@@ -1,9 +1,8 @@
 {
-    "version": 2,
-    "routes": [
-      {
-        "src": "/(.*)",
-        "dest": "./dist/day2movies-api.js"
-      }
-    ]
+  "rewrites": [
+    {
+      "source": "/(.*)",
+      "destination": "./dist/day2movies-api.js"
+    }
+  ]
   }
