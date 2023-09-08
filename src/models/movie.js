@@ -10,6 +10,10 @@ const movieSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  slug_url: {
+    type :String,
+    required: true
+  },
   adult: Boolean,
   backdrop_path: String,
   genre_ids: [Number],
@@ -23,18 +27,7 @@ const movieSchema = new mongoose.Schema({
   video: Boolean,
   vote_average: Number,
   vote_count: Number,
-  // overview: String,
-  // original_language: String,
-  // language: String,
-  // releaseDate: String,
-  // runtime: Number,
-  // genres: [String],
-  // posterPath: String,
-  // backdropPath: String,
-  // popularity: Number,
-  // voteAverage: Number,
-  // voteCount: Number,
-  // Add more fields as needed to store relevant movie data from TMDB
+  main_content: String,
 });
 
 export const Movie = mongoose.model('Movie', movieSchema);

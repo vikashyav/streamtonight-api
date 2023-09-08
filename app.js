@@ -43,19 +43,6 @@ class MyApp {
       retryWrites: true,
       w: 'majority'
     });
-    try {
-      console.log("process.env.MONGODB_CONNECTION_URL", typeof process.env.MONGODB_CONNECTION_URL);
-      const mongodb = await mongoose.connect(constant.MONGODB_CONNECTION_URL, {
-        useNewUrlParser: true,
-        useUnifiedTopology: true,
-        retryWrites: true,
-        w: 'majority'
-      });
-      console.log('Connected to MongoDB');
-      return mongodb
-    } catch (error) {
-      console.error('MongoDB connection error:', error);
-    }
   }
 
   configureApp = async ({ mongodb,}) => {

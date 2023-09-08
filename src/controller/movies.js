@@ -2,6 +2,7 @@ import axios from 'axios';
 import constant from '../helper/constant';
 import {Movie} from "../models/movie";
 import expressAsyncHandler from 'express-async-handler';
+import slugify from '../utils/slugify';
 class moviesController{
 
   getMoviesList =expressAsyncHandler((req, res, next)=>{
@@ -27,22 +28,31 @@ class moviesController{
       return {data: movies ,  total_results}
     }).then(({data,  total_results})=>{
       res.status(200).send({
+        page,
         results: data,
         total_pages: Math.ceil(total_results / limitNumber),
         total_results,
       });
     })
   })
+
     saveTmdbMovies= async (req, res, next)=>{
         const {  } = req.params;
-        const {page, base_url, ...restQueryy}= req.query;
+        const {page, base_url, ...restQueryy }= req.query;
         // const apiKey = 'YOUR_TMDB_API_KEY'; // Replace with your TMDB API key
       // ?api_key=${apiKey}&page=${page}
 
+    //   const bollywoodQuery= {
+    //     certification_country: "IN",
+    //     with_original_language: "hi",
+    //     "release_date.gte": moment().subtract(1, 'year').startOf('year').format("YYYY-MM-DD") || "2023-01-01",
+    //     "release_date.lte": moment().add(1, 'week').format("YYYY-MM-DD") || "2023-08-16",
+    // }
         await axios.get(`${constant.TMDB.BASE_URL}/movie/popular`,{
             params: {
                 api_key: constant.TMDB.API_KEY,
                 page: page ? page : 1,
+                ...restQueryy
             }
         })
         .then(async (response)=>{
@@ -55,6 +65,8 @@ class moviesController{
             for (const movieData of movies) {
               const {id, ...restData}= movieData;
               const tmdbId = movieData.id;
+
+              const slugifyUrl = `${slugify(`${(restData?.title || restData?.original_title)} ${constant.MOVIE_PAGE.SEO_MOVIE_URL}`)}`;
         
               // Define the update operation for each movie
               const updateOperation = {
@@ -63,22 +75,16 @@ class moviesController{
                   update: {
                     $setOnInsert: { // Set values only if the document is inserted (i.e., movie is new)
                       tmdbId,
+                      slug_url: slugifyUrl,
                       ...restData
-                      // title: movieData.title,
-                      // overview: movieData.overview,
-                      // releaseDate: movieData.release_date,
-                      // Add more fields as needed to map TMDB data
                     },
                   },
                   upsert: true, // Create a new document if it doesn't exist
                 },
               };
-        
               updateOperations.push(updateOperation);
             }
-        
             // Use Mongoose's updateMany to perform the bulk update/insert
-            // await Movie.default.
             await Movie.bulkWrite(updateOperations);
         
             res.status(200).json({ message: `New movies from page ${page} saved successfully` });
