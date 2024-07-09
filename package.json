@@ -2,11 +2,12 @@
   "name": "day2movies-api",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "nodemon --exec babel-node app.js",
-    "start": "node ./dist/day2movies-api.js",
+    "start": "nodemon --exec babel-node app.js",
+    "start-prod": "node ./dist/day2movies-api.js",
     "build": "npm-run-all --serial clean webpack",
     "webpack": "webpack --config ./.scripts/webpack.config.js",
     "clean": "rimraf dist"
