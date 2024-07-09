@@ -10,7 +10,7 @@ module.exports = () => {
 		output: {
 			path: path.resolve(__dirname, `../dist`),
 			publicPath: "/",
-			filename: `day2movies-api.js`,
+			filename: `index.js`,
 		},
 		target: "node",
 		node: {

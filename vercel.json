@@ -1,8 +1,15 @@
 {
-  "rewrites": [
-    {
-      "source": "/(.*)",
-      "destination": "./dist/day2movies-api.js"
-    }
-  ]  
-  }
+  "version": 2,
+  "builds": [
+      {
+          "src": "/dist/index.js",
+          "use": "@vercel/node"
+      }
+  ],
+  "routes": [
+      {
+          "src": "/(.*)",
+          "dest": "/dist/index.js"
+      }
+  ]
+}
