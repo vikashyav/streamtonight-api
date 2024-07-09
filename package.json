@@ -8,7 +8,7 @@
     "dev": "nodemon --exec babel-node app.js",
     "start": "nodemon --exec babel-node app.js",
     "start-prod": "node ./dist/day2movies-api.js",
-    "build-prod": "npm-run-all --serial clean webpack",
+    "build": "npm-run-all --serial clean webpack",
     "webpack": "webpack --config ./.scripts/webpack.config.js",
     "clean": "rimraf dist"
   },
